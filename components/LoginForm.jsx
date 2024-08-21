@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
 
@@ -15,7 +16,22 @@ export default function Login() {
     // handeling the login
     const handleSubmit = async (e) => {
 
+        e.preventDefault();
 
+        try {
+            const res = await signIn("credentials", {
+                email, password, redirect: false,
+            });
+
+            if (res.error) {
+                setError("Invalid credentials");
+                return;
+            }
+
+            router.replace('dashboard')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -26,7 +42,7 @@ export default function Login() {
                 <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="input input-bordered w-full max-w-xs mt-[20px]" />
                 <button className="btn text-[#FBF9F1] bg-[#4A4E74] rounded-[5px] w-1/2 h-[10%] font-bold">Login</button>
                 <Link className="text-sm mt-3 text-right" href={"/register"}>
-                    Don't have an account? <span className="underline">Create an account</span>
+                    Don&apos;t have an account? <span className="underline">Create an account</span>
                 </Link>
             </form>
         </div>
