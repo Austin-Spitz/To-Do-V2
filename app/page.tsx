@@ -1,7 +1,9 @@
-import LoginForm from "../app/components/LoginForm"
+import LoginForm from "../components/LoginForm"
 
 export default function HomePage(){
   return (
-    <LoginForm/>
+    <main>
+      <LoginForm/>
+    </main>
   )
 }

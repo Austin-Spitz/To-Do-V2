@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Login() {
 
@@ -24,7 +25,9 @@ export default function Login() {
                 <input onChange={(e) => setEmail(e.target.value)} type="text" placeholder="Email" className="input input-bordered w-full max-w-xs" />
                 <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="input input-bordered w-full max-w-xs mt-[20px]" />
                 <button className="btn text-[#FBF9F1] bg-[#4A4E74] rounded-[5px] w-1/2 h-[10%] font-bold">Login</button>
-                <button onClick={() => router.push("../register")} className="btn bg-[#339023] text-[#ffffff] rounded-[5px] w-[30%] h-[10%] font-bold font-sans">Create account</button>
+                <Link className="text-sm mt-3 text-right" href={"/register"}>
+                    Don't have an account? <span className="underline">Create an account</span>
+                </Link>
             </form>
         </div>
     )
