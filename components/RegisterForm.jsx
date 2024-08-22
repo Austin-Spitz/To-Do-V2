@@ -21,20 +21,20 @@ export default function RegisterForm() {
         }
 
         try {
-            // const resUserExists = await fetch("api/userExists", {
-            //     method: "POST",
-            //     headers: {
-            //         "Content-Type": "application/json",
-            //     },
-            //     body: JSON.stringify({ email }),
-            // });
+            const resUserExists = await fetch("api/userExists", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
 
-            // const { user } = await resUserExists.json();
+            const { user } = await resUserExists.json();
 
-            // if (user) {
-            //     setError("User already exists.");
-            //     return;
-            // }
+            if (user) {
+                setError("User already exists.");
+                return;
+            }
 
             const res = await fetch("api/register", {
                 method: "POST",

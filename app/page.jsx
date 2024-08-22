@@ -8,7 +8,7 @@ export default async function HomePage() {
     const session = await getServerSession(authOptions);
 
     if (session) {
-        redirect("/dashbaord")
+        redirect("/dashboard")
     }
     return (
         <main>
