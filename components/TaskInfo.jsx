@@ -1,17 +1,40 @@
 "use client"
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 export default function TaskInfo() {
 
 
     const [taskD, setTaskD] = useState();
+    const [tasks, setTasks] = useState([]);
     const [taskStatus, setTaskStatus] = useState();
     const [taskDue, setTaskDue] = useState();
 
     const { data: session } = useSession();
+
+    async function fetchData() {
+
+        try {
+            const res = await fetch("/api/getTask");
+
+            const data = await res.json();
+
+
+            console.log("sess: ", data.userTasks);
+            if (res.ok) {
+                setTasks(data.userTasks);
+            }
+
+        } catch (error) {
+            console.log("Error with TaskList: ", error);
+        }
+    }
+
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     const handleSubmit = async (e) => {
 
@@ -31,6 +54,8 @@ export default function TaskInfo() {
             if (resTask.ok) {
                 const form = e.target;
                 form.reset();
+                fetchData();
+                return;
             }
         } catch (error) {
             console.log("error from task adding: ", error);
@@ -53,6 +78,16 @@ export default function TaskInfo() {
             </form>
             <button onClick={() => signOut()}>Log out</button>
 
+            <h1>Task List: </h1>
+            {tasks.length > 0 ? (
+                <ul>
+                    {tasks.map((task, index) => (
+                        <li className="font-bold" key={index}>{task.taskD}</li>
+                    ))}
+                </ul>
+            ) : (
+                <h2>No tasks found.</h2>
+            )}
 
         </div>
 

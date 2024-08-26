@@ -1,5 +1,19 @@
-// writng code to create schema
 import mongoose, { Schema, models } from "mongoose";
+
+const taskSchema = new Schema({
+  taskD: {
+    type: String,
+    required: true,
+  },
+  taskDue: {
+    type: String,
+    required: true,
+  },
+  taskStatus: {
+    type: String,
+    required: true,
+  },
+});
 
 const userSchema = new Schema(
   {
@@ -14,6 +28,10 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    tasks: {
+      type: [taskSchema],
+      default: [],
     },
   },
   { timestamps: true }
