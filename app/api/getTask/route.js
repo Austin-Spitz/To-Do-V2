@@ -18,9 +18,10 @@ export async function GET(req) {
 
     const userTasksData = await User.findOne({email: userEmail},{tasks:true,_id:false});
 
-    //mapping over the tasks so that it only returns the taskD, taskDue
+    //mapping over the tasks so that it only returns the taskD, taskDue, etc.
     const userTasks = userTasksData.tasks.map(task => ({
       taskD: task.taskD,
+      taskStatus: task.taskStatus,
       taskDue: task.taskDue
     }))
 

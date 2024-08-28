@@ -26,3 +26,9 @@ body {
     text-wrap: balance;
   }
 }
+
+.overlay {
+  border-image: fill 1 linear-gradient(hwb(46 8% 33% / 0.3), hsla(0, 0%, 15%, 0.6));
+  opacity: .90;
+  /* border-image: fill 1 linear-gradient(hsla(0, 1%, 27%, 0.6), hsla(0, 0%, 15%, 0.6)); */
+}

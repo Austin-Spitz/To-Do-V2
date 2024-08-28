@@ -65,10 +65,8 @@ export default function TaskInfo() {
 
 
     return (
-        <div>
+        <div className="bg-[url('https://cdn.pixabay.com/photo/2017/05/16/21/51/coffee-2319122_1280.jpg')] bg-center bg-no-repeat bg-cover w-full h-[100vh] overlay">
 
-            <h1>Hello, {session?.user?.name}</h1>
-            <p>Your tasks await you below:</p>
 
             <form onSubmit={handleSubmit}>
                 <input onChange={(e) => setTaskD(e.target.value)} type="text" placeholder="task description"></input>
@@ -78,24 +76,28 @@ export default function TaskInfo() {
             </form>
             <button onClick={() => signOut()}>Log out</button>
 
-            <h1>Task List: </h1>
-            {tasks.length > 0 ? (
-                <ul>
-                    {tasks.map((task, index) => (
-                        <li className="font-bold" key={index}>{task.taskD}</li>
-                    ))}
-                </ul>
-            ) : (
-                <h2>No tasks found.</h2>
-            )}
+            <div className="w-[80%] ml-[10%] mt-60 border-2 border-spacing-5 p-10 rounded-md overflow-y-scroll max-h-[400px]">
+                <table className="w-full my-6 border border-black border-separate border-spacing-0 text-sm font-normal font-sans table-fixed">
+                    <thead className="bg-red-600 text-white sticky top-0">
+                        <tr>
+                            <th className="bg-red-800 text-white sticky top-0">Description</th>
+                            <th className="bg-red-800 text-white sticky top-0">Status</th>
+                            <th className="bg-red-800 text-white sticky top-0">Due</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {tasks.map((task, index) => (
+                            <tr key={index}>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.taskD}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.taskStatus}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{task.taskDue}</td>
+
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
         </div>
-
-        // <div>
-        //     <h1>{session?.user?.name}</h1>
-        //     <h2>{session?.user?.email}</h2>
-
-        //     <button onClick={() => signOut()}>Log out</button>
-        // </div>
     )
 }
