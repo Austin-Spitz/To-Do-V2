@@ -1,4 +1,4 @@
-import TaskInfo from "../../components/TaskInfo"
+import TaskInfo from "../../components/TaskInfo/TaskInfo"
 
 export default function Dashboard() {
     return (

@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 
 export default function TaskInfo() {
 
+    const [tasks, setTasks] = useState([]); // takes all task useStates and adds them in the array
 
-    const [taskD, setTaskD] = useState();
-    const [tasks, setTasks] = useState([]);
-    const [taskStatus, setTaskStatus] = useState();
-    const [taskDue, setTaskDue] = useState();
+
+    const [taskD, setTaskD] = useState(); // task description
+    const [taskStatus, setTaskStatus] = useState(); 
+    const [taskDue, setTaskDue] = useState(); // task Due
 
     const { data: session } = useSession();
 
@@ -31,6 +32,7 @@ export default function TaskInfo() {
         }
     }
 
+    console.log("TaskD", taskD);
 
     useEffect(() => {
         fetchData();
@@ -41,6 +43,13 @@ export default function TaskInfo() {
         e.preventDefault();
 
         try {
+
+            if(!taskD || !taskStatus || !taskDue){
+                console.log("One or more field is empty. ");
+                const form = e.target;
+                form.reset()
+                return;
+            }
 
             // call the addTask and post
             const resTask = await fetch("api/addTask", {
@@ -67,12 +76,13 @@ export default function TaskInfo() {
     return (
         <div className="bg-[url('https://cdn.pixabay.com/photo/2017/05/16/21/51/coffee-2319122_1280.jpg')] bg-center bg-no-repeat bg-cover w-full h-[100vh] overlay">
 
-
+            {/* <h1 className="session-name">Hello, {session?.user?.name}</h1> */}
+            <h1 className="header-name">Hello Andrew!</h1>
             <form onSubmit={handleSubmit}>
-                <input onChange={(e) => setTaskD(e.target.value)} type="text" placeholder="task description"></input>
-                <input onChange={(e) => setTaskStatus(e.target.value)} type="status" placeholder="status"></input>
-                <input onChange={(e) => setTaskDue(e.target.value)} type="due date" placeholder="due date"></input>
-                <button>Add task</button>
+                <input data-testid ="task-input" onChange={(e) => setTaskD(e.target.value)} type="text" placeholder="task description"></input>
+                <input data-testid ="task-input" onChange={(e) => setTaskStatus(e.target.value)} type="status" placeholder="status"></input>
+                <input data-testid ="task-input" onChange={(e) => setTaskDue(e.target.value)} type="due date" placeholder="due date"></input>
+                <button data-testid ="addTask-btn">Add task</button>
             </form>
             <button onClick={() => signOut()}>Log out</button>
 
