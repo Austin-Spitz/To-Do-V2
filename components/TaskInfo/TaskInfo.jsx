@@ -2,6 +2,8 @@
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+
 
 export default function TaskInfo() {
 
@@ -13,6 +15,7 @@ export default function TaskInfo() {
     const [taskDue, setTaskDue] = useState(); // task Due
 
     const { data: session } = useSession();
+
 
     async function fetchData() {
 
@@ -72,6 +75,46 @@ export default function TaskInfo() {
     }
 
 
+    
+    const handleDelete = async (taskId, taskD, taskStatus, taskDue) => {
+        try {
+          // Call the deleteTask API
+          const delTask = await fetch(`/api/deleteTask/${taskId}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ taskD, taskStatus, taskDue, userEmail: session?.user?.email }),
+          });
+    
+          if (delTask.ok) {
+            fetchData();
+          }
+        } catch (error) {
+          console.log("Error from deleting the task: ", error);
+        }
+      };
+
+
+
+    // function handleDelete(taskId) {
+    //     fetch(`/api/deleteTask/${taskId}`, {
+    //       method: 'DELETE',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(taskD, taskStatus, taskDue),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       console.log(data.message);
+    //       // Optionally, refresh the task list or update the UI
+    //     })
+    //     .catch(error => console.error('Error:', error));
+    //   }
+      
+
+
 
     return (
         <div className="bg-[url('https://cdn.pixabay.com/photo/2017/05/16/21/51/coffee-2319122_1280.jpg')] bg-center bg-no-repeat bg-cover w-full h-[100vh] overlay">
@@ -96,11 +139,11 @@ export default function TaskInfo() {
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {tasks.map((task, index) => (
-                            <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.taskD}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.taskStatus}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{task.taskDue}</td>
+                        {tasks.map((tasks) => (
+                            <tr key={tasks._id}>
+                                <td className="px-6 py-4 whitespace-nowrap">{tasks.taskD}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{tasks.taskStatus}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{tasks.taskDue}<FaRegTrashAlt onClick={() => handleDelete(tasks._id, tasks.taskD, tasks.taskStatus, tasks.taskDue)} className="cursor-pointer" /> </td>
 
                             </tr>
                         ))}

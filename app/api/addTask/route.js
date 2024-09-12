@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-
     // connect the database
     await connectMongoDB();
     const { taskD, taskStatus, taskDue, userEmail } = await req.json();
@@ -32,10 +31,12 @@ export async function POST(req) {
       { $push: { tasks: newTask } }
     );
 
-    return NextResponse.json({message: "Task created"},{status: 201});
+    return NextResponse.json({ message: "Task created" }, { status: 201 });
   } catch (error) {
     console.log("AddTask error: ", error);
-    return NextResponse.json({message: "Error while adding the task. Try again later"},{status: 500});
-
+    return NextResponse.json(
+      { message: "Error while adding the task. Try again later" },
+      { status: 500 }
+    );
   }
 }
