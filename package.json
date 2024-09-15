@@ -11,7 +11,13 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.8",
+    "@nextui-org/modal": "^2.0.39",
+    "@nextui-org/react": "^2.4.6",
+    "@nextui-org/system": "^2.2.5",
+    "@nextui-org/theme": "^2.2.9",
     "bcryptjs": "^2.4.3",
+    "framer-motion": "^11.5.4",
     "mongoose": "^8.5.3",
     "next": "14.2.5",
     "next-auth": "^4.24.7",

@@ -8,6 +8,10 @@ export async function POST(req) {
     await connectMongoDB();
     const { taskD, taskStatus, taskDue, userEmail } = await req.json();
 
+    console.log("Task Des: ", taskD);
+    console.log("Task stat: ", taskStatus);
+    console.log("Task due: ", taskDue);
+
     // Getting the user by their email
     const user = await User.findOne({ email: userEmail });
 

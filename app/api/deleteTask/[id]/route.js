@@ -9,6 +9,10 @@ export async function DELETE(req, { params }) {
 
     const { taskD, taskStatus, taskDue, userEmail } = await req.json();
 
+    console.log("TaskD: ", taskD);
+    console.log("TaskStatus: ", taskStatus);
+    console.log("taskDue: ", taskDue);
+
     await User.updateOne(
       { email: userEmail },
       { $pull: { tasks: { taskD, taskDue, taskStatus } } }
