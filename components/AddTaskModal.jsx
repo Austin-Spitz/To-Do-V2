@@ -2,12 +2,17 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import TextField from '@mui/material/TextField';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 export default function MyModal({onTaskChange}) {
   let [isOpen, setIsOpen] = useState(false)
 
-  const [tasks, setTasks] = useState([]); // takes all task useStates and adds them in the array
+  const [selectedRadio, setSelectedRadio] = useState('');
 
 
   const [taskD, setTaskD] = useState(); // task description
@@ -16,8 +21,6 @@ export default function MyModal({onTaskChange}) {
 
   const { data: session } = useSession();
 
-  
- 
 
   function closeModal() {
     setIsOpen(false)
@@ -25,6 +28,11 @@ export default function MyModal({onTaskChange}) {
 
   function openModal() {
     setIsOpen(true)
+  }
+
+  const handleLabel = (option) => {
+    setSelectedRadio(option);
+    setTaskStatus(option);
   }
 
   const handleSubmit = async (e) => {
@@ -63,15 +71,9 @@ export default function MyModal({onTaskChange}) {
 
   return (
     <>
-      <div className="">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-[#ab8814ba] px-4 py-2 text-sm font-medium text-white hover:bg-[#ab8814] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-        >
-          Add task
-        </button>
-      </div>
+
+      <div onClick={openModal} className="h-20 w-20 flex justify-center ml-[3rem] mt-[6rem] items-center pb-1 rounded-full bg-[#ffa938] hover:bg-[#f48c06] text-5xl leading-[5rem] text-[#eee] shadow-[0.2rem_0.5rem_1rem_rgba(0,0,0,0.4)] cursor-pointer">&#43;</div>
+
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -98,31 +100,40 @@ export default function MyModal({onTaskChange}) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-[40rem] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-[25px] mb-[5rem] text-[#556ca2]"
                   >
-                    Creating Task
+            
+                    Create task:
+                    <br/>
+                    <br/>
+                    <hr/>
                   </Dialog.Title>
                   <div className="mt-2">
                   <form onSubmit={handleSubmit}>
-                <input data-testid ="task-input" onChange={(e) => setTaskD(e.target.value)} type="text" placeholder="task description"></input>
-                <input data-testid ="task-input" onChange={(e) => setTaskStatus(e.target.value)} type="status" placeholder="status"></input>
-                <input data-testid ="task-input" onChange={(e) => setTaskDue(e.target.value)} type="due date" placeholder="due date"></input>
-                <button data-testid ="addTask-btn">Add task</button>
+
+
+
+                  <TextField placeholder="Enter your Task..." id="outlined-multiline-static" autoComplete="off" onChange={(e) => setTaskD(e.target.value)} multiline rows={3} ></TextField> <br/>
+
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DatePicker']}>
+        <DatePicker onChange={(newValue)=>setTaskDue(newValue)} label="MM/DD/YY" format='MM/DD/YYYY'/>
+      </DemoContainer>
+    </LocalizationProvider>
+    
+    <div className="mt-[3rem] flex gap-[10px] label-container">
+      <label className={selectedRadio === 'Low' ? 'low-selected' : 'label-low'}  onClick={() => handleLabel('Low')}>Low</label>
+      <label className={selectedRadio === 'Medium' ? 'medium-selected' : 'label-medium'}  onClick={() => handleLabel('Medium')}>Medium</label>
+      <label className={selectedRadio === 'High' ? 'high-selected' : 'label-high'}  onClick={() => handleLabel('High')}>High</label>
+      <button className='ml-64 border-2 border-[#556ca2] rounded-md p-1 text-[15px] w-32 text-[#556ca2] hover:text-[white] hover:bg-[#556ca2]' data-testid ="addTask-btn">Add task</button>
+    </div>
+
             </form>
                   </div>
 
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
