@@ -1,6 +1,6 @@
 "use client"
 import React, {useEffect, useState} from "react"
-import ModalComp from "../components/ModalComp"
+import ModalComp from "./AddTaskModal"
 import TaskInfo from "../components/TaskInfo/TaskInfo";
 
 

@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
+* {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -42,17 +50,116 @@ body {
 
 /* TaskInfo table Style */
 
-.table__body::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
 }
 
-.table__body::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   border-radius: .5rem;
   background-color: #0004;
-  visibility: hidden;
+}
+/* 
+::-webkit-scrollbar-thumb:hover {
+  visibility: visible;
+} */
+
+/* Custom Scrollbar */
+/* 
+::-webkit-scrollbar {
+  width: .75em;
+  height: 2em;
 }
 
-.table__body:hover::-webkit-scrollbar-thumb {
-  visibility: visible;
+ ::-webkit-scrollbar-track {
+  background: #fff5;
+  border-radius: 100vw;
+  margin-block: .5em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(192, 189, 189, 0.546);
+  border-radius: 100vw;
+} */
+
+/*
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(120 100% 10% / 1);
+
+} */
+
+
+/* Radio button & form style */
+
+input[type='radio']{
+  display: none;
+}
+
+.label-container label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 50px;
+  height: 30px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.label-container .label-low{
+  border: 2px solid #008000;
+  color: #008000;
+}
+
+.label-container .label-low:hover{
+  background-color: #008000;
+  color: white;
+}
+
+.label-container .label-medium{
+  border: 2px solid #ffa500;
+  color: #ffa500;
+}
+
+.label-container .label-medium:hover{
+  background-color: #ffa500;
+  color: white;
+}
+
+.label-container .label-high{
+  border: 2px solid #fd3535;
+  color: #fd3535;
+}
+
+.label-container .label-high:hover{
+  background-color: #fd3535;
+  color: white;
+}
+
+.label-container .low-selected {
+  background-color: #008000;
+  color: white;
+}
+
+.label-container .medium-selected {
+  background-color: #ffa500;
+  color: white;
+}
+
+.label-container .high-selected {
+  background-color: #fd3535;
+  color: white;
+}
+
+/* Status data */
+
+.status {
+  padding: .4rem 0;
+  border-radius: 2rem;
+  text-align: center;
+  float: left;
+  margin-top: .75rem;
+  margin-bottom: .75rem;
+  width: 5rem;
 }
