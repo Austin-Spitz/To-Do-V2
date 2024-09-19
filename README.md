@@ -7,15 +7,20 @@ This is a Next.js task management application that allows users to:
 
 - Sign up / Log in using authentication.
 - Create tasks and set prioritization levels.
-- View, update, and delete tasks.
+- Create, view, & delete tasks.
 - All data is stored securely using MongoDB.
 
   
 ## Features
 
 - User Authentication: Users can securely log in and manage their tasks.
-- Task Prioritization: Set and update priority levels for each task.
-- CRUD Operations: Full Create, Read, Update, and Delete functionality for tasks.
+- Task Prioritization: Set priority levels for each task.
+- CRUD Operations: Full Create, Read, and Delete functionality for tasks.
+
+
+## Future Features:
+
+- Update task feature
 
 
 ## Tech Stack
