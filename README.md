@@ -1,6 +1,39 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+
+# Task Manager Application
+
+This is a Next.js task management application that allows users to:
+
+- Sign up / Log in using authentication.
+- Create tasks and set prioritization levels.
+- View, update, and delete tasks.
+- All data is stored securely using MongoDB.
+
+  
+## Features
+
+- User Authentication: Users can securely log in and manage their tasks.
+- Task Prioritization: Set and update priority levels for each task.
+- CRUD Operations: Full Create, Read, Update, and Delete functionality for tasks.
+
+
+## Tech Stack
+
+- Next.js: React framework for server-side rendering and frontend.
+- MongoDB: NoSQL database for storing user data and tasks.
+- NextAuth.js: For handling authentication.
+
+
+## Prerequisites
+
+- Node.js installed on your system.
+- A MongoDB database set up (see below for instructions).
+
+
+
+
+# Installation
 
 First, run the development server:
 
@@ -16,21 +49,55 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Database
 
-To learn more about Next.js, take a look at the following resources:
+create a .env file in the root directory of the project with the following conent:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+MONGODB_URL=<your-mongodb-url>
+user
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+NEXTAUTH_SECRET=dlaser  // just some random long string of characters
 
-## Deploy on Vercel
+NEXTAUTH_URL=http://localhost:3000
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+# MongoDB Setup
+
+### 1. Sign up or log in to MongoDB Atlas at https://mongodb.com.
+
+### 2. Create a new project (or choose an existing one).
+
+### 3. Set up a new cluster:
+
+- Click "Build a Cluster".
+- Choose your cloud provider and region.
+- Set up the cluster.
+
+### 4. Create a database user:
+
+- Navigate to "Database Access" and click "Add New Database User".
+- Choose a username and password.
+
+### 5. Set up Network Access:
+
+- Go to "Network Access" and allow access from your IP address by clicking "Add IP Address".
+
+### 6. Get your MongoDB connection string:
+
+- In "Clusters", click "Connect" and choose "Connect your application".
+- Copy the connection string and replace <password> with your database user password.
+
+
+### 7. Add the MongoDB URL to your .env file:
+
+
+```bash
+
+MONGODB_URL=mongodb+srv://<username>:<password>@cluster0.edtle.mongodb.net/
+
+```
